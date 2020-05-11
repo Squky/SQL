@@ -45,3 +45,49 @@ Foreign Key**:
       Has a composite primary key, not its own.\
       **Composite primary key**: A combination of 2 foreign keys.
       **Candidate Keys**: Keys which are eligible candidates to become the primary key for a table.
+
+### Structured Query Language
+#### Data Manipulation Language
+**DML:**\
+SELECT\
+INSERT\
+UPDATE\
+DELETE
+
+#### Data Definition Language
+**DDL:**\
+CREATE\
+ALTER\
+DROP\
+TRUNCATE- delete all the data from the table and the table is now empty. No in between (UNLIKE **DELETE**)
+#### Data Control Language
+DCL - Permissions:\
+GRANT\
+REVOKE
+#### Transaction Control Language
+TCL:\
+COMMIT\
+ROLLBACK\
+SAVEPOINT
+
+### Data Types
+#### VARCHAR
+Variable length character/s. Records MAX size.
+Will only use the necessary amount of space for characters
+#### CHARACTER or CHAR
+Fixed length character/s. Will count empty spaces as part of the data input. **MEMORY IN-EFFICIENT** BUT is 50% faster in retrieving data.
+#### INT
+A whole number. Can also be bigint, smallint and tinyint
+#### DATE or TIME or DATETIME
+Stores Date, Time or Both.
+#### Decimal or Numeric
+
+#### Binary
+Used to store binary data such as image or file
+
+#### Float
+Scientific use (very large number)
+
+#### BIT
+Acts as a boolean
+Equivalent to binary (0, 1 or NULL)

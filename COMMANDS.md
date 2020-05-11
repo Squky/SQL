@@ -8,6 +8,8 @@
 
 #### ALTER TABLE [TABLENAME] \N DROP COLUMN [ColumnName]
 
+#### INSERT INTO [Your Table] ( column_name1, ...)  \n   VALUES ( 'value1', 'value2' )
+
 USE hussain_db
 
 CREATE TABLE hussain_film_table
