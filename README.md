@@ -72,25 +72,78 @@ SAVEPOINT
 
 ### Data Types
 #### VARCHAR
-Variable length character/s. Records MAX size.
-Will only use the necessary amount of space for characters
+- Variable length character/s. Records MAX size.
+- Will only use the necessary amount of space for characters
 #### CHARACTER or CHAR
-Fixed length character/s. Will count empty spaces as part of the data input. **MEMORY IN-EFFICIENT** BUT is 50% faster in retrieving data.
+- Fixed length character/s. Will count empty spaces as part of the data input. **MEMORY IN-EFFICIENT** BUT is 50% faster in retrieving data.
 #### INT
-A whole number. Can also be bigint, smallint and tinyint
+- A whole number. Can also be bigint, smallint and tinyint
 #### DATE or TIME or DATETIME
-Stores Date, Time or Both.
+- Stores Date, Time or Both.
 #### Decimal or Numeric
 
 #### Binary
-Used to store binary data such as image or file
+- Used to store binary data such as image or file
 
 #### Float
-Scientific use (very large number)
+- Scientific use (very large number)
 
 #### BIT
-Acts as a boolean
-Equivalent to binary (0, 1 or NULL)
+- Acts as a boolean
+- Equivalent to binary (0, 1 or NULL)
 
 
 ## Tuesday 12/05/2020
+
+#### Variations on INSERT
+**Changing the Order of the columns**
+- If you've already created a table, the order in which you add the data doesn't have to be the same as the original column order as long as the values match the order you are now inserting.
+
+**Omitting column names**
+- You don't have to put the column names in, but the values have to be in the same order as the original columns
+
+**Leaving some columns out**
+- You can leave some info out, it doesn't have to be inserted with the rest.
+- For this you will have to specify the column names the values are going into.
+
+**VARCHAR, CHAR AND DATE** ALL use quotes for their **VALUES**
+- Not Decimal and int
+
+**Common errors:**
+- Missing VALUE.
+- Missing column.
+- Missing single quote mark.
+
+**NULL is an undefined value - similar to absence of other data**
+- NULL =!= NULL
+- **NULL** is written without \' \'
+
+**Identity(0,1)**
+- auto increments column and treats it as id
+
+#### DataBase Considerations
+**Data Security**
+- Protect key data info.
+- PCI (Payment Card Industry Data Standard) compliance.
+**Data Recovery**
+- Failsafes must be implemented
+**Data Integrity**
+- Ensure data does not get corrupted or is incomplete.
+**Normal Form**
+- Data formats
+
+
+### Normalisation
+- **1NF**
+ - Each cell should only have one value
+ - There should be no redundancy
+ - Split table into 2
+- **2NF**
+ - MUST be in **1NF**
+ - All non-key attribute are fully functionally dependent on the Primary Key
+ - i.e. splitting a table into 2 tables where in one table, one of the attributes is fully dpendent on the primary key in that table.
+
+- **3NF**
+ - MUST be in **2NF**
+ - There is **NO** transitive functional dependency
+ - i.e. A transitive Functional Dependency is when a non-key column is Functionally Dependent on another non-key column, which is Functionally Dependent on the Primary key.
