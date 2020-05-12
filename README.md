@@ -93,7 +93,7 @@ SAVEPOINT
 - Equivalent to binary (0, 1 or NULL)
 
 
-## Tuesday 12/05/2020
+# Tuesday 12/05/2020
 
 #### Variations on INSERT
 **Changing the Order of the columns**
@@ -147,3 +147,27 @@ SAVEPOINT
  - MUST be in **2NF**
  - There is **NO** transitive functional dependency
  - i.e. A transitive Functional Dependency is when a non-key column is Functionally Dependent on another non-key column, which is Functionally Dependent on the Primary key.
+
+
+
+**WILD CARD characters**
+- Wildcards can be used as a substitute for any other characters in a string when using the LIKE operator
+- **%** A substitute for zero **or** more characters
+- **_** A sub for a single character
+- [charlist] : Sets and ranges of characters to match.
+ - For example:
+ ```SQL
+ LIKE [ABC]%
+
+- [^charlist]: Sets and ranges of characters that don't match.
+  - For example:
+  ```SQL
+  LIKE[^ABC]%
+
+  - This will bring back anything that does not start with those letters
+
+
+
+**ON DELETE CASCADE**
+
+- Check COMMANDS.md

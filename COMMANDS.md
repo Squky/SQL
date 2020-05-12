@@ -106,3 +106,38 @@ WHERE [Column]=[Value]
 
 DELETE FROM [TableName]
 WHERE [Column]=[Value]
+
+SELECT TOP [num]
+
+SELECT * FROM
+WHERE [Condition1] AND [Condition2] OR [Condition3]
+
+SELECT p.CategoryID  -- Assign Products to variable 'p'
+FROM Products p
+WHERE p.CategoryID=1
+
+SELECT DISTINCT -- REMOVES DUPLICATE VALUES
+
+SELECT *
+FROM Customers WHERE Region IN ('WA','SP')
+-- The IN operator allows retrieval of more than one
+Instead of using Region = 'WA' OR Region ='SP' OR ...
+
+SELECT *
+FROM EmployeeTerritories
+WHERE TerritoryID BETWEEN 06800 AND 09999
+-- BETWEEN provides a range
+
+SELECT o.EmployeeID, COUNT(*) AS 'Number OF Orders'
+FROM Orders o
+GROUP BY EmployeeID
+HAVING EmployeeID IN (5,7)
+-- This shows 2 columns of count rather than the total
+
+**ON DELETE CASCADE :-**
+
+FOREIGN KEY (item_id) REFERENCES item(item_id) ON DELETE SET NULL,
+
+FOREIGN KEY (cust_id) REFERENCES customer(cust_id) ON DELETE CASCADE,
+
+FOREIGN KEY (empl_id) REFERENCES employee(empl_id) ON UPDATE CASCADE
