@@ -17,7 +17,7 @@ We must be able to structure tables to contain the right type of info, so that i
 **Primary Key \
 Foreign Key**:
   Ensures that the row of info in Table A corresponds to the correct row of info in Table B.\
-  Prevents **invalid data** from being inserted into the foreign key column, because it has to be one of hte values contained in the table it points to.\
+  Prevents **invalid data** from being inserted into the foreign key column, because it has to be one of the values contained in the table it points to.\
   Cannot delete the primary key version of this while it is being used as a foreign key.
 
 #### Types of Databases
@@ -91,3 +91,6 @@ Scientific use (very large number)
 #### BIT
 Acts as a boolean
 Equivalent to binary (0, 1 or NULL)
+
+
+## Tuesday 12/05/2020
