@@ -141,3 +141,9 @@ FOREIGN KEY (item_id) REFERENCES item(item_id) ON DELETE SET NULL,
 FOREIGN KEY (cust_id) REFERENCES customer(cust_id) ON DELETE CASCADE,
 
 FOREIGN KEY (empl_id) REFERENCES employee(empl_id) ON UPDATE CASCADE
+
+
+-- Using ORDER BY to find the top 2 highest Net Total
+SELECT TOP 2 OrderID, UnitPrice * Quantity AS "Gross Total", UnitPrice * Quantity * (1-Discount) AS "Net Total"
+FROM [Order Details]
+ORDER BY "Net Total" DESC

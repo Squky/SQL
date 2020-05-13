@@ -171,3 +171,61 @@ SAVEPOINT
 **ON DELETE CASCADE**
 
 - Check COMMANDS.md
+
+# Wedesnday 13/05/2020
+
+### Continuing with Data-base querying
+**Arithmetic Operators**
+- +
+- -
+- *
+- /
+- %: Modulus
+
+**Gross Total vs Net Total**
+
+**ORDER BY:**
+``` SQL
+SELECT UnitPrice, Quantity, Discount, UnitPrice * Quantity AS "Gross Total"
+FROM [Order Details]
+ORDER BY "Gross Total" DESC
+```
+GROUP BY does not have this functionality!
+Also the columns being GROUP BY'd must also be mentioned in the SELECT section.
+
+
+### String Functions
+- SUBSTRING:
+```SQL
+SUBSTRING(expression, start, length)
+SUBSTRING(name,1,1) for the initial
+```
+- CHARINDEX:
+```SQL
+CHARINDEX('a'.'text') --to search for a string e.g. find 'a' in a column called 'text'
+returns '0' if not found
+```
+- LEFT or RIGHT:
+LEFT(name,5) -- for the first (or last) 5 characters
+
+- LTRIM or RTRIM
+ - Used to remove spaces at the beginning or end of a string
+
+- LEN
+  - returns length of string
+
+- REPLACE
+ -REPLACE(name,' ','_') to replace 2nd parameter with the 3rd parameter.
+
+- UPPER or LOWER
+ - Converts to upper/lower case
+
+### Join sub queries
+
+### GROUP BY- HAVING in detail
+
+### union and union all
+
+### String methods
+
+### -
