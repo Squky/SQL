@@ -134,6 +134,8 @@ GROUP BY EmployeeID
 HAVING EmployeeID IN (5,7)
 -- This shows 2 columns of count rather than the total
 
+
+---
 **ON DELETE CASCADE :-**
 
 FOREIGN KEY (item_id) REFERENCES item(item_id) ON DELETE SET NULL,
@@ -141,9 +143,66 @@ FOREIGN KEY (item_id) REFERENCES item(item_id) ON DELETE SET NULL,
 FOREIGN KEY (cust_id) REFERENCES customer(cust_id) ON DELETE CASCADE,
 
 FOREIGN KEY (empl_id) REFERENCES employee(empl_id) ON UPDATE CASCADE
+----
 
-
--- Using ORDER BY to find the top 2 highest Net Total
+--- Using ORDER BY to find the top 2 highest Net Total
 SELECT TOP 2 OrderID, UnitPrice * Quantity AS "Gross Total", UnitPrice * Quantity * (1-Discount) AS "Net Total"
 FROM [Order Details]
 ORDER BY "Net Total" DESC
+---
+
+
+--- Listing employees and calculating their retirement status:
+SELECT CONCAT(e.FirstName,' ',e.LastName) AS "Name ",
+DATEDIFF(yyyy,e.BirthDate,GETDATE()) AS "Age",
+CASE
+    WHEN DATEDIFF(yyyy,e.BirthDate,GETDATE()) >= 65 THEN 'Retired'
+    WHEN DATEDIFF(yyyy,e.BirthDate,GETDATE()) = 60 THEN 'Retirement Due'
+    ELSE 'More than 5 years to go.'
+    END AS 'Retirement Status'
+FROM Employees e
+---
+
+
+--- testing aggregate Functions
+SELECT SupplierID,SUM(UnitsOnOrder) AS "Total on Order",
+AVG(UnitsOnOrder) AS "Avg On Order",
+MIN(UnitsOnOrder) AS "Min on Order",
+MAX(UnitsOnOrder) AS "Max on Order"
+FROM Products
+WHERE UnitsOnOrder >0
+GROUP BY SupplierID,UnitsOnOrder
+---
+
+--- Testing AVG with GROUP BY and ORDER BY
+SELECT  CategoryID, AVG(ReorderLevel) AS "Avg on reorder level"
+FROM Products
+GROUP BY CategoryID
+ORDER BY "Avg on reorder level" DESC
+---
+
+
+--- Aggregate functions with GROUP BY and HAVING
+SELECT SupplierID,
+SUM(UnitsOnOrder) AS "Total On Order",
+AVG(UnitsOnOrder) AS "Avg On Order"
+FROM Products
+GROUP BY SupplierID
+HAVING AVG(UnitsOnOrder) > 5
+---
+
+
+--- Example of INNER JOIN
+SELECT p.SupplierID,s.CompanyName , AVG(UnitsOnOrder) AS "Average units on Orders "
+FROM Products p INNER JOIN Suppliers S ON p.SupplierID = s.SupplierID
+GROUP BY p.SupplierID, s.CompanyName
+---
+
+--- Example of multiple inner joins
+
+SELECT p.ProductName, p.UnitPrice, CompanyName AS "Supplier",
+CategoryName AS "Category"
+FROM Products p
+INNER JOIN Suppliers s ON p.SupplierID = s.SupplierID
+INNER JOIN Categories c ON p.CategoryID = c.CategoryID
+---

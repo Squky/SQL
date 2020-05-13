@@ -220,9 +220,52 @@ LEFT(name,5) -- for the first (or last) 5 characters
 - UPPER or LOWER
  - Converts to upper/lower case
 
+### Escaping
+- Using Apostrophe to escape (not \\)
+  - i.e. LIKE '%''%'
+  - or ''''
+
+### DATE Functions
+- GETDATE
+- SYSDATETIME
+- DATEADD
+```SQL
+SELECT DATEADD(d,5,OrderDate) AS "Due Date",
+DATEDIFF(d,OrderDate,ShippedDate) AS "Ship Days"
+FROM Orders
+
+- - DATEADD has 3 arguments:
+  - d or dd means day, m or mm month etc
+  - Date to be added to
+  - How many units to addd
+
+- DATEDIFF
+- YEAR
+- MONTH
+- DAY
+
+### SELECT CASE
+```SQL
+SELECT DATEDIFF(d,OrderDate,ShippedDate) AS "Days for Delivery",
+CASE
+WHEN DATEDIFF(d,OrderDate,ShippedDate) <10
+THEN 'On Time'
+ELSE 'Overdue'
+END AS 'Status'
+FROM Orders
+```
+
+
+
 ### Join sub queries
 
 ### GROUP BY- HAVING in detail
+**Aggregate Functions:**
+- SUM
+- AVG
+- MIN
+- MAX
+- COUNT
 
 ### union and union all
 
