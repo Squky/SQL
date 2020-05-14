@@ -174,7 +174,7 @@ WHERE UnitsOnOrder >0
 GROUP BY SupplierID,UnitsOnOrder
 ---
 
---- Testing AVG with GROUP BY and ORDER BY
+--- **Testing AVG with GROUP BY and ORDER BY**
 SELECT  CategoryID, AVG(ReorderLevel) AS "Avg on reorder level"
 FROM Products
 GROUP BY CategoryID
@@ -206,3 +206,37 @@ FROM Products p
 INNER JOIN Suppliers s ON p.SupplierID = s.SupplierID
 INNER JOIN Categories c ON p.CategoryID = c.CategoryID
 ---
+
+--- **Subqueries**
+
+SELECT CompanyName AS "Customers"
+FROM Customers
+WHERE CustomerID NOT IN
+  (SELECT CustomerID FROM Orders )
+
+---
+
+--- **Subqueries: using subquery as a column**
+
+SELECT OrderID,ProductID, UnitPrice,Quantity, Discount,
+(SELECT MAX(UnitPrice) FROM [Order Details] od) AS "Max Price"
+FROM [Order Details]
+
+---
+---- **Subquery example**
+
+SELECT *
+FROM [Order Details] od
+WHERE od.ProductID IN
+(SELECT p.ProductID FROM Products p WHERE p.Discontinued=1)
+
+---- **Above subquery but with a join**
+
+SELECT od.OrderID, od.ProductID, od.UnitPrice, od.Quantity, od.Discount
+FROM [Order Details] od
+INNER JOIN Products p ON od.ProductID = p.ProductID
+WHERE p.Discontinued !=0
+
+
+
+---- **Union**

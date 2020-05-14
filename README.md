@@ -61,7 +61,7 @@ ALTER\
 DROP\
 TRUNCATE- delete all the data from the table and the table is now empty. No in between (UNLIKE **DELETE**)
 #### Data Control Language
-DCL - Permissions:\
+**DCL - Permissions:**\
 GRANT\
 REVOKE
 #### Transaction Control Language
@@ -259,6 +259,7 @@ FROM Orders
 
 ### Join sub queries
 
+
 ### GROUP BY- HAVING in detail
 **Aggregate Functions:**
 - SUM
@@ -268,6 +269,9 @@ FROM Orders
 - COUNT
 
 ### union and union all
+- Used to combine 2 columns from 2 different tables
+- **Union** is distinct
+- **Union all** is not
 
 ### String methods
 

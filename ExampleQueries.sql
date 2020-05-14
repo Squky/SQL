@@ -78,3 +78,110 @@ WHERE Region IS NOT NULL
 SELECT DISTINCT Country AS 'Country with Region Codes'
 FROM Customers
 WHERE Region IS NOT NULL
+
+
+-- Looking at operators within tables with "Gross Total" and "Net Total"
+SELECT UnitPrice, Quantity, Discount, UnitPrice * Quantity AS "Gross Total"
+FROM [Order Details]
+-- Here we used the multiplication operator ' * ' 
+
+
+
+SELECT TOP 2 OrderID, UnitPrice * Quantity AS "Gross Total", UnitPrice * Quantity * (1-Discount) AS "Net Total"
+FROM [Order Details]
+ORDER BY "Net Total" DESC
+
+
+
+
+
+SELECT PostalCode "Post Code",
+LEFT (PostalCode, CHARINDEX(' ',PostalCode) -1 ) AS "Post Code Region",
+CHARINDEX(' ',PostalCode) AS "Space Found" ,Country
+FROM Customers 
+WHERE Country= 'UK'
+ORDER BY "Space Found" ASC
+
+SELECT ProductName AS "Product Names with Apostrophe" 
+FROM Products
+WHERE ProductName LIKE '%''%'
+
+
+SELECT ProductName AS "Product Names with Apostrophe" 
+FROM Products
+WHERE (CHARINDEX('''',ProductName)>0)
+
+---
+SELECT CONCAT(e.FirstName,' ',e.LastName) AS "Name ",
+DATEDIFF(mm,E.BirthDate,GETDATE()) AS "Age"
+FROM Employees e
+---
+
+
+---
+SELECT DATEDIFF(d,OrderDate,ShippedDate) AS "Days for Delivery",
+CASE
+WHEN DATEDIFF(d,OrderDate,ShippedDate) <10 
+THEN 'On Time'
+ELSE 'Overdue'
+END AS 'Status'
+FROM Orders
+---
+
+---
+SELECT CONCAT(e.FirstName,' ',e.LastName) AS "Name ",
+DATEDIFF(yyyy,e.BirthDate,GETDATE()) AS "Age",
+CASE
+    WHEN DATEDIFF(yyyy,e.BirthDate,GETDATE()) >= 65 THEN 'Retired'
+    WHEN DATEDIFF(yyyy,e.BirthDate,GETDATE()) = 60 THEN 'Retirement Due'
+    ELSE 'More than 5 years to go.'
+    END AS 'Retirement Status'
+FROM Employees e
+---
+
+
+SELECT SupplierID,SUM(UnitsOnOrder) AS "Total on Order",
+AVG(UnitsOnOrder) AS "Avg On Order",
+MIN(UnitsOnOrder) AS "Min on Order",
+MAX(UnitsOnOrder) AS "Max on Order"
+FROM Products
+WHERE UnitsOnOrder >0
+GROUP BY SupplierID,UnitsOnOrder
+
+SELECT TOP 1 CategoryID, AVG(ReorderLevel) AS "Avg on reorder level" 
+FROM Products
+GROUP BY  CategoryID 
+ORDER BY "Avg on reorder level" DESC
+
+
+SELECT SupplierID,
+SUM(UnitsOnOrder) AS "Total On Order",
+AVG(UnitsOnOrder) AS "Avg On Order"
+FROM Products
+GROUP BY SupplierID
+HAVING AVG(UnitsOnOrder) > 5
+ORDER BY "Total On Order"
+
+
+SELECT p.SupplierID,s.CompanyName , AVG(UnitsOnOrder) AS "Average units on Orders "
+FROM Products p INNER JOIN Suppliers S ON p.SupplierID = s.SupplierID
+GROUP BY p.SupplierID, s.CompanyName
+
+
+
+
+SELECT p.ProductName, p.UnitPrice, CompanyName AS "Supplier",
+CategoryName AS "Category"
+FROM Products p
+INNER JOIN Suppliers s ON p.SupplierID = s.SupplierID
+INNER JOIN Categories c ON p.CategoryID = c.CategoryID
+
+
+SELECT o.OrderID, o.OrderDate, o.Freight, CONCAT(e.FirstName, ' ', e.LastName)  AS "Employee Names", c.CompanyName
+FROM Orders o
+INNER JOIN Customers c ON o.CustomerID = o.CustomerID
+INNER JOIN Employees e ON o.EmployeeID = o.EmployeeID
+
+
+
+SELECT * FROM Customers
