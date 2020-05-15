@@ -45,24 +45,133 @@ WHERE e.Country = 'UK'
 
 -- Exercise 1.6
 
-SELECT * 
-FROM Territories
+
+
+
+SELECT od.OrderID, r.RegionID, od.Quantity, od.UnitPrice,
+(SELECT MAX(od.UnitPrice*(1-od.Discount)*od.Quantity ) )AS "Total Sales"
+
+FROM Territories t
+INNER JOIN Region r ON t.RegionID = R.RegionID
+INNER JOIN EmployeeTerritories eT ON t.TerritoryID = eT.TerritoryID
+INNER JOIN Orders o ON et.EmployeeID = o.EmployeeID
+INNER JOIN [Order Details] od ON o.OrderID = od.OrderID
+
+GROUP BY od.OrderID, r.RegionID, od.Quantity, od.UnitPrice
+
+ORDER BY r.RegionID
+
+
+
+
 ----
 
 
 -- Exercise 1.7
 
-SELECT COUNT(o.OrderID)
+SELECT O.ShipCountry, O.Freight
 FROM Orders o 
-WHERE o.Freight > 100.0 AND (o.ShipCountry = 'USA' OR o.ShipCountry='UK')
+WHERE o.Freight > 100.0 OR (o.ShipCountry = 'USA' OR o.ShipCountry='UK')
+order by o.Freight
 ----
 
 -- Exercise 1.8
 
-SELECT TOP 10 o.OrderID,MAX(o.Discount) AS "Highest Discount"
+SELECT TOP 10 o.OrderID, MAX(o.Discount) AS "Highest Discount",
+ROUND(SUM(o.UnitPrice*(1-o.Discount) *o.Quantity),2) AS "Discounted Price", 
+SUM(o.UnitPrice * o.Quantity) AS "Original Order Price"
 FROM [Order Details] o
 GROUP BY o.OrderID
-ORDER BY "Highest Discount" DESC
+ORDER BY "Highest Discount" DESC 
 ----
 
 
+
+-- Exercise 2.1
+
+CREATE TABLE SpartansTable
+(
+    spartanID INT IDENTITY(1,1),
+    title VARCHAR(5),
+    f_name VARCHAR(50),
+    l_name VARCHAR(50),
+    University VARCHAR(50),
+    Course VARCHAR(50),
+    markAchieved DECIMAL(2,1)
+)
+
+-- Exercise 2.2
+INSERT INTO SpartansTable
+
+VALUES
+(
+    'Mr.','Hussain','Ali','University Of Essex','Computer Science',2.1
+)
+
+INSERT INTO SpartansTable
+VALUES
+(
+    'Mr.','Nathan','Forester','University Of Phoenix','Computer Science',1.0
+),
+(
+    'Mr.', 'Stefan','Okolo','University Of Michigan', 'Business and Accounting',1.0
+),
+(
+    'Mr.', 'Ashraf','Mohamud','University of York', 'Biological Sciences',1.0
+),
+(
+    'Miss.','Saskia','Van Barthold','Imperial College London','Chemical Engineering',1.0
+)
+
+SELECT * FROM
+SpartansTable
+
+DROP TABLE SpartansTable
+
+-----------
+
+
+-- Exercise 3.1
+
+
+SELECT CONCAT(e.TitleOfCourtesy,e.FirstName,' ', e.LastName) AS Employee,
+e.ReportsTo AS "Reports to"
+FROM Employees e 
+
+------
+
+
+-- Exercise 3.2 
+
+SELECT s.CompanyName ,ROUND(SUM(od.UnitPrice*(1- od.Discount )*od.Quantity),2) AS "Total Sales"
+FROM Products p 
+INNER JOIN Suppliers s ON p.SupplierID = s.SupplierID
+INNER JOIN [Order Details] od ON p.ProductID = od.ProductID
+
+GROUP BY s.CompanyName
+HAVING SUM(od.UnitPrice*od.Quantity) > 10000
+ORDER BY  "Total Sales" DESC 
+
+
+-----------
+
+
+-- Exercise 3.3
+
+
+-- Wasn't sure which "Date" to use from the Orders table 
+-- I used ShippedDate but the code still works with the oher dates :)
+
+SELECT TOP 10 od.OrderID, SUM(od.UnitPrice*od.Quantity) AS "Order Value", o.CustomerID, o.ShippedDate
+FROM [Order Details] od
+INNER JOIN Orders o ON od.OrderID = o.OrderID
+GROUP BY od.OrderID , o.CustomerID,o.ShippedDate
+HAVING SUM(DATEDIFF(yyyy,o.ShippedDate,GETDATE()))<23
+ORDER BY "Order Value" DESC
+------
+
+
+-- Exercise 3.4
+
+SELECT * 
+FROM Orders o
