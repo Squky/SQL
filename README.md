@@ -254,7 +254,13 @@ ELSE 'Overdue'
 END AS 'Status'
 FROM Orders
 ```
-
+### JOINS
+- INNER JOIN
+  - ONLY returns rows that have matching columns in the other table
+- LEFT JOIN
+  - Returns ALL the rows from the left table and only MATCHING ones from the right.
+- RIGHT JOIN
+  - Returns ALL the rows from the RIGHT table and only MATCHING ones from the left.
 
 
 ### Join sub queries
